@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: install maven
+    apt:
+      pkg: maven
+      state: present
+    notify: run update
+  - name: Java JDK
+    apt:
+      pkg: openjdk-8-jdk
+      state: present
+  - name: install docker
+    apt:
+      pkg: docker.io
+      state: present
+  - name: start docker
+    service:
+      name: docker
+      state: started
+      enabled: true
+  - name: jar file deploy in node
+    command: sudo docker run -itd -p 8484:8080 mitranmukesh/my-test-app:1.5
+  handlers:
+  - name: run update
+    apt:
+      update_cache: yes
+...
