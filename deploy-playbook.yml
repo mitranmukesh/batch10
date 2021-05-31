@@ -2,10 +2,6 @@
 - hosts: all
   become: true
   tasks:
-  - name: Java JDK
-    apt:
-      pkg: openjdk-8-jdk
-      state: present
   - name: install docker
     apt:
       pkg: docker.io
@@ -15,6 +11,8 @@
       name: docker
       state: started
       enabled: true
+  - name: pull image
+    command: sudo docker pull mitranmukesh/my-test-apps:1.6
   - name: jar file deploy in node
     command: sudo docker run -itd -p 8888:8888 mitranmukesh/my-test-apps:1.6
   handlers:
