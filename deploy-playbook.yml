@@ -1,5 +1,5 @@
 ---
-- hosts: 10.148.0.13
+- hosts: 172.31.35.30
   become: true
   tasks:
   - name: install maven
